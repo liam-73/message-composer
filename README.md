@@ -76,6 +76,18 @@ pnpm preview
 pnpm lint
 ```
 
+## Docker
+
+```bash
+# Build production image
+docker build -t message-composer .
+
+# Run container on http://localhost:4173
+docker run --rm -p 4173:80 message-composer
+```
+
+The image uses a multi-stage build: Node + pnpm compile the Vite site, and Nginx serves the static assets. Update the container port mapping if deploying behind another reverse proxy.
+
 ## Project Structure
 
 ```
