@@ -7,12 +7,10 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 # Install dependencies
 COPY package.json pnpm-lock.yaml ./
 COPY tsconfig*.json ./
-COPY vite.config.ts ./
 RUN pnpm install --frozen-lockfile
 
 # Copy source
-COPY src ./src
-COPY public ./public
+COPY . .
 
 # Build
 RUN pnpm run build
@@ -31,7 +29,7 @@ RUN printf 'server { \
   server_name _; \
   root /usr/share/nginx/html; \
   location / { \
-    try_files $$uri /index.html; \
+    try_files $uri /index.html; \
   } \
 }' > /etc/nginx/conf.d/default.conf
 
